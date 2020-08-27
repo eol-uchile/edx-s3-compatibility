@@ -13,3 +13,10 @@ class S3Boto3StorageWrapper(S3Boto3Storage):
     def save(self, name, content, max_length=None):
         content = self.__force_byte_content(content)
         return super().save(name, content, max_length)
+
+    
+class ImportExportS3Boto3Storage(S3Boto3Storage):
+    def save(self, name, content, max_length=None):
+        if name.endswith("tar.gz"):
+            content.content_type = 'Application/Gzip'
+        return super().save(name, content, max_length)
