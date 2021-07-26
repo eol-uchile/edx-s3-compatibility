@@ -1,5 +1,6 @@
 from storages.backends.s3boto3 import S3Boto3Storage
 from django.core.files.base import ContentFile
+from django.conf import settings
 
 class S3Boto3StorageWrapper(S3Boto3Storage):
     def __force_byte_content(self, content):
@@ -16,7 +17,7 @@ class S3Boto3StorageWrapper(S3Boto3Storage):
 
     
 class ImportExportS3Boto3Storage(S3Boto3Storage):
-    bucket_name = "impexp"
+    bucket_name = settings.COURSE_IMPORT_EXPORT_BUCKET
     def save(self, name, content, max_length=None):
         if name.endswith("tar.gz"):
             content.content_type = 'Application/Gzip'
