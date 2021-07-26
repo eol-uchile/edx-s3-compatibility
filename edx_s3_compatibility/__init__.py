@@ -16,6 +16,7 @@ class S3Boto3StorageWrapper(S3Boto3Storage):
 
     
 class ImportExportS3Boto3Storage(S3Boto3Storage):
+    bucket_name = "impexp"
     def save(self, name, content, max_length=None):
         if name.endswith("tar.gz"):
             content.content_type = 'Application/Gzip'
